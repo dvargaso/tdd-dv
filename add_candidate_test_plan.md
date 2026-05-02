@@ -1,7 +1,6 @@
 # Add candidate — acceptance criteria and test plan
 
 For **`addCandidate`**; tests live under **`backend/__test__/integration/`** and follow **`.cursor/rules/backend-integration-tests.mdc`**: **mock** persistence (no HTTP, no real DB), assert **invocations + outcomes**, each **`it`** with **Given / When / Then**; process **AC → BDD scenarios → code**; this slice needs **≥ 5** non-happy scenarios.
-
 **In scope:** `addCandidate` (`candidateService.ts`), `validateCandidateData` (`validator.ts`), Prisma schema as mock contract. **Out of scope:** HTTP `POST /candidates`, `POST /upload`, unused `addCandidateController`, real DB, `prisma.$transaction` (not used today).
 
 **Binding:** Rules = `validator.ts` + Prisma + observable `addCandidate`; OpenAPI non-authoritative. Tests = **service integration + mocks**. Return = core **`savedCandidate`** only (no nested relations required). **`id` present:** no app validation; core **update**; `educations` / `workExperiences` / `cv` loops may still **create** children without re-validating those arrays. **No** cross-step transactional guarantee. Validation rethrow **`throw new Error(error)`** may surface messages like **`Error: <inner>`** — assert **actual** shape or fix code separately.
@@ -48,9 +47,9 @@ For **`addCandidate`**; tests live under **`backend/__test__/integration/`** and
 
 ---
 
-## Test cases (mirror in code after BDD scenario approval)
+## Test cases (implemented)
 
-Status: **Draft** — link each `it` to an ID. Mocks per rules above.
+Status: **Implemented** — each row maps to a `describe` / `it` in `addCandidate.integration.test.ts` (S-01…S-14, TC-01…TC-14; TC-08 covers two cases via `it.each`).
 
 | ID | AC | Summary | Type |
 |----|-----|---------|------|
@@ -75,7 +74,7 @@ TC-09…TC-13 = **5** non-happy (meets **≥ 5**). TC-14 optional.
 
 ## BDD scenarios (Given / When / Then)
 
-**Status:** Draft for review. Each scenario maps to a **TC-ID**. Implement each `it` with explicit **Given / When / Then** (comments or nested `describe`). **Validation order** in code: core fields → `educations[]` → `workExperiences[]` → `cv` (only if `cv` is non-empty object); negative examples below match that order so “persist not invoked” stays accurate.
+**Status:** **Implemented** in `addCandidate.integration.test.ts` (Given / When / Then comments per `it`). **Validation order** in code: core fields → `educations[]` → `workExperiences[]` → `cv` (only if `cv` is non-empty object); negative examples match that order so “persist not invoked” stays accurate.
 
 **Implementation note (mocks):** Scenarios describe **observable** `addCandidate` behavior. Tests must mock/stub persistence used by `Candidate`, `Education`, `WorkExperience`, and `Resume` (e.g. Prisma) so there are **no real DB writes**—exact wiring is up to the test author, not these steps.
 
@@ -197,6 +196,10 @@ TC-09…TC-13 = **5** non-happy (meets **≥ 5**). TC-14 optional.
 
 ---
 
-**Next:** Approve **BDD scenarios** above → implement under `backend/__test__/integration/`.
+## Wrap-up
 
-**Revision:** (initial); 2026-05-02 — rules alignment + tighten + BDD scenarios (self-audit: S-11 uses no `educations` + invalid work so validation fails before `candidate.save()`; S-12 uses non-empty invalid `cv`; S-09 documents `throw new Error(error)` message shape).
+- **AC:** Approved. **BDD:** Implemented and passing locally via Jest + mocked `@prisma/client`.
+- **When tests fail:** follow `.cursor/rules/backend-integration-tests.mdc` — treat as possible AC/spec gap; align with stakeholders before changing **`backend/src`** only for test convenience.
+- **Out of band:** HTTP route and real DB behavior remain **out of scope** for this suite; add E2E or DB-backed tests separately if product requires them.
+
+**Revision:** (initial); 2026-05-02 — rules alignment + tighten + BDD scenarios (self-audit: S-11/S-12/S-09); **wrap-up** — mark test cases + BDD implemented, add paths and `npm test` hint.
