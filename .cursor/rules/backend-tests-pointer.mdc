@@ -1,0 +1,9 @@
+---
+description: Backend src — point to unit/integration test rules
+globs: backend/src/**/*.ts
+alwaysApply: false
+---
+
+# Backend tests
+
+When **adding or changing** tests, use **`backend/__test__/unit/`** and **`backend/__test__/integration/`** and their rules—or apply the same process from context if those rules are not loaded. Structure each case as **Given / When / Then** (see those rules).

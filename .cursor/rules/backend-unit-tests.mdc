@@ -1,0 +1,21 @@
+---
+description: Backend unit tests — function-level, aligned to approved AC
+globs: backend/__test__/unit/**/*.test.ts
+alwaysApply: false
+---
+
+# Backend unit tests
+
+## What to test
+
+- **One function’s logic** per focused case; mock **all** collaborators (DB, HTTP, fs, time, etc.).
+- **Fast and deterministic**; no real network or database.
+- Prefer **AAA** mapped to **Given / When / Then**; each **`it`** uses nested `describe` **or** `// Given` · `// When` · `// Then` before arrange / act / assert.
+- Names describe **behavior**, not internals.
+- For **existing code**, start at the smallest stable entry point.
+
+## Process
+
+- **No** full use-case → AC → BDD workshop here (that runs on **integration** tests for the same slice).
+- Build unit tests from **acceptance criteria the user already approved** for that slice (from the integration workflow or explicitly supplied). If AC for the slice is missing, **ask** for a minimal goal or point the user to defining integration AC first.
+- **Before implementing:** always send a **compact case list**; wait for user acknowledgment (not a full BDD workshop).

@@ -1,0 +1,28 @@
+---
+description: Backend integration tests — wiring, mocked DB, gated AC/BDD process
+globs: backend/__test__/integration/**/*.test.ts
+alwaysApply: false
+---
+
+# Backend integration tests
+
+## What to test
+
+- Exercise a **flow across several units** at **code boundaries** (not HTTP or a real DB).
+- **Mock DB and other I/O**; assert **repository/data helpers are invoked** as expected—**no real reads/writes**. Also assert **observable outcomes** (return values, errors), not only calls.
+- **Deterministic**; slower than unit is fine.
+- Each **`it`**: **Given / When / Then** — nested `describe` **or** `// Given` · `// When` · `// Then` above setup, action, assertions.
+
+## Process (existing code — do not trust implementation)
+
+Work **one flow per slice** (e.g. one service entrypoint and its collaborators). **Do not write test code** until the gates below are satisfied.
+
+1. **Acceptance criteria** — Infer high-level use cases and draft **acceptance criteria** from the code; **present to the user** and wait for approve/refine. Wrong or missing rules are **discovered here** and updated before tests exist.
+2. **BDD scenarios** — From approved AC, propose scenarios in **Given / When / Then**. **One happy path per use case** (unless the user asked for more). **Non-happy:** ≥**3** if the slice is **tiny** (little validation, few branches); ≥**5** with more validation or branching (invalid / incomplete data). **Present for review**; wait for approve/refine.
+3. **Implementation** — Only after scenario approval; mirror approved scenarios in **Given / When / Then** in code.
+
+## When a test fails
+
+Default: possible **AC/spec gap** — **align with the user first**, then fix **code** or **test** as agreed.
+
+After agreed changes to **AC**, **scenarios**, or **code**, **sync tests**. Wrong **business rule** → **add or tweak a scenario** so it does not recur.
