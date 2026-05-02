@@ -1,5 +1,15 @@
 import axios from 'axios';
 
+/**
+ * Joins first and last name with a single space; trims each part and drops empties.
+ */
+export const formatCandidateDisplayName = (firstName, lastName) => {
+    const parts = [firstName, lastName]
+        .map((part) => (part == null ? '' : String(part).trim()))
+        .filter(Boolean);
+    return parts.join(' ');
+};
+
 export const uploadCV = async (file) => {
     const formData = new FormData();
     formData.append('file', file);

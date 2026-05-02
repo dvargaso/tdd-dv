@@ -6,5 +6,6 @@
     "schema": "backend/prisma/schema.prisma"
   },
   "devDependencies": {
+    "jest": "^30.3.0"
   }
 }

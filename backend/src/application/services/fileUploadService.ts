@@ -49,3 +49,7 @@ export const uploadFile = (req: Request, res: Response) => {
         });
     });
 };
+
+export function sum(a: number, b: number): number {
+    return a + b;
+}
