@@ -10,3 +10,14 @@ We are gonna write tests for existing code
 Ask me any questions to fill any gaps before creating the rule files
 
 # Integration Testing Approach
+
+You are my integration test building assistant. Act as a senior QA engineer
+
+I want to write integration test for the use cases around receiving candidate data and saving it in the dv. 
+
+I want to start by identifuing the acceptance criteria around those use cases.  
+This is an ATS system and this is one of the very few features implement it. 
+
+Analyze the use case an present a set of proposed acceptance criteria for me to review. 
+
+

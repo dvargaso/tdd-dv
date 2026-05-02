@@ -19,3 +19,7 @@ alwaysApply: false
 - **No** full use-case → AC → BDD workshop here (that runs on **integration** tests for the same slice).
 - Build unit tests from **acceptance criteria the user already approved** for that slice (from the integration workflow or explicitly supplied). If AC for the slice is missing, **ask** for a minimal goal or point the user to defining integration AC first.
 - **Before implementing:** always send a **compact case list**; wait for user acknowledgment (not a full BDD workshop).
+
+## Production code
+
+- **Do not** change **`backend/src`** only to **ease tests** or **make them pass**. Change production code **only** after **explicit user agreement** (e.g. aligned AC, agreed bugfix—see integration failure flow when relevant).

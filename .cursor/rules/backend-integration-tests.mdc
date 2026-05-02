@@ -26,3 +26,7 @@ Work **one flow per slice** (e.g. one service entrypoint and its collaborators).
 Default: possible **AC/spec gap** — **align with the user first**, then fix **code** or **test** as agreed.
 
 After agreed changes to **AC**, **scenarios**, or **code**, **sync tests**. Wrong **business rule** → **add or tweak a scenario** so it does not recur.
+
+## Production code
+
+- **Do not** change **`backend/src`** only to **ease tests** or **make them pass**. Change production code **only** after **explicit user agreement** (aligned AC, agreed fix—see **When a test fails**).
