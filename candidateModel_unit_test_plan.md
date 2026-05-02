@@ -94,13 +94,4 @@ Unit tests for [backend/src/domain/models/Candidate.ts](backend/src/domain/model
 - File pattern: `--testPathPattern='unit/domain/models/Candidate'` if needed to avoid matching other `Candidate` strings.
 - Full: `cd backend && npm test`
 
-## Status
 
-**Implemented** — `backend/__test__/unit/domain/models/Candidate.test.ts` + `candidateModelPrismaMock.ts` (CM-01..CM-11).
-
-## Revision history
-
-| Date | Change |
-|------|--------|
-| 2026-05-02 | Initial plan (CM-01..CM-11): constructor defaults, create/update mapping, error branches, `findOne`. |
-| 2026-05-02 | Implemented unit tests; status set to implemented. |
