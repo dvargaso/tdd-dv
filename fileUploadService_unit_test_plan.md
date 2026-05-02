@@ -62,19 +62,3 @@ Unit tests for [backend/src/application/services/fileUploadService.ts](backend/s
 - Per case: `cd backend && npm test -- --testPathPattern=fileUploadService --testNamePattern='UF-0N'`
 - Full: `cd backend && npm test`
 
-## Risks / notes
-
-- **`jest.mock('multer')`** must run before the module under test loads `fileUploadService` (Jest hoisting). Factory should return `jest.fn(() => ({ single: jest.fn(() => handler) }))` and tests reassign `handler` / `single` behavior per case, or use a mutable `let nextCallbackBehavior` the mock reads.
-- **`MulterError`:** use `require('multer').MulterError` inside the test after mock, or construct an object that passes `instanceof multer.MulterError` if the mock preserves the class—**verify** against real `multer` types when implementing.
-- Do **not** hit disk or real HTTP server; all I/O via mocks.
-
-## Status
-
-**Implemented:** [backend/__test__/unit/application/fileUploadService.test.ts](backend/__test__/unit/application/fileUploadService.test.ts). Stub removed: `backend/__test__/src/application/services/fileUploadService.test.ts` (duplicate `sum` only). Run: `cd backend && npm test -- --testPathPattern=fileUploadService`.
-
-## Revision history
-
-| Date | Change |
-|------|--------|
-| 2026-05-02 | Initial plan: UF-01..UF-07, rules-aligned, `fileUploadService_unit_test_plan.md`. |
-| 2026-05-02 | Implemented unit tests; full `npm test` green; per-case `--testNamePattern=UF-xx` verified. |
