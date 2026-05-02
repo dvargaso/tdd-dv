@@ -64,7 +64,7 @@ After agreed changes to **AC**, **scenarios**, or **code**, **sync tests**. Wron
 #Unit Test Rules
 
 ---
-description: Backend unit tests — function-level, aligned to approved AC
+description: Backend unit tests — function-level logic, standalone process
 globs: backend/__test__/unit/**/*.test.ts
 alwaysApply: false
 ---
@@ -73,22 +73,20 @@ alwaysApply: false
 
 ## What to test
 
-- **One function’s logic** per focused case; mock **all** collaborators (DB, HTTP, fs, time, etc.).
-- **Fast and deterministic**; no real network or database.
-- Prefer **AAA** mapped to **Given / When / Then**; each **`it`** uses nested `describe` **or** `// Given` · `// When` · `// Then` before arrange / act / assert.
+- **One function at a time**: its **inputs, branches, return values, and errors**—inner logic in isolation.
+- Mock **all** collaborators (DB, HTTP, fs, time, etc.). **Fast, deterministic**; no real network or database.
+- **AAA** as **Given / When / Then**; each **`it`**: nested `describe` **or** `// Given` · `// When` · `// Then` before arrange / act / assert.
 - Names describe **behavior**, not internals.
 - For **existing code**, start at the smallest stable entry point.
 
 ## Process
 
-- **No** full use-case → AC → BDD workshop here (that runs on **integration** tests for the same slice).
-- Build unit tests from **acceptance criteria the user already approved** for that slice (from the integration workflow or explicitly supplied). If AC for the slice is missing, **ask** for a minimal goal or point the user to defining integration AC first.
-- **Before implementing:** always send a **compact case list**; wait for user acknowledgment (not a full BDD workshop).
+- Derive cases from the **function under test** (signature, branches, guards, edge values)—not from another test layer.
+- **Before implementing:** send a **compact case list**; wait for user acknowledgment (short list, not a full BDD document).
 
 ## Production code
 
-- **Do not** change **`backend/src`** only to **ease tests** or **make them pass**. Change production code **only** after **explicit user agreement** (e.g. aligned AC, agreed bugfix—see integration failure flow when relevant).
-
+- **Do not** change **`backend/src`** only to **ease tests** or **make them pass**. Change production code **only** after **explicit user agreement**.
 
 
 # Integration Test Plan 

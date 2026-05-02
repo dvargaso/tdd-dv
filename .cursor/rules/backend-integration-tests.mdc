@@ -20,6 +20,7 @@ Work **one flow per slice** (e.g. one service entrypoint and its collaborators).
 1. **Acceptance criteria** — Infer high-level use cases and draft **acceptance criteria** from the code; **present to the user** and wait for approve/refine. Wrong or missing rules are **discovered here** and updated before tests exist.
 2. **BDD scenarios** — From approved AC, propose scenarios in **Given / When / Then**. **One happy path per use case** (unless the user asked for more). **Non-happy:** ≥**3** if the slice is **tiny** (little validation, few branches); ≥**5** with more validation or branching (invalid / incomplete data). **Present for review**; wait for approve/refine.
 3. **Implementation** — Only after scenario approval; mirror approved scenarios in **Given / When / Then** in code.
+4. **After each test:** self-audit (matches scenario, GWT, mocks + outcomes)—**run** it; **pass** before starting the next.
 
 ## When a test fails
 
