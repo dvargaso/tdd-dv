@@ -86,11 +86,3 @@ describe('first/last name', () => {
 });
 ```
 
-## Verification
-
-`cd backend && npm test -- --testPathPattern=validator`; then full `npm test` (integration suite must still pass).
-
-## Status
-
-**Implemented:** [backend/__test__/unit/application/validator.test.ts](backend/__test__/unit/application/validator.test.ts) — U-01..U-46, one `it` each; Given / When / Then; no mocks; assertions are `not.toThrow()` / `toThrow('<literal>')` only.
-
